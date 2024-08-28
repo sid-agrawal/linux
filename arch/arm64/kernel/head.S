@@ -422,6 +422,7 @@ SYM_FUNC_START_LOCAL(__primary_switched)
 	init_cpu_task x4, x5, x6
 
 	adr_l	x8, vectors			// load VBAR_EL1 with virtual
+	// (XXX) Linh: where the virt addr of the vector table is set in vbar_el1
 	msr	vbar_el1, x8			// vector table address
 	isb
 

@@ -97,6 +97,7 @@
 	sub	sp, sp, x0
 	mrs	x0, tpidrro_el0
 #endif
+	// (XXX) Linh: this is the call to the entry_handler function
 	b	el\el\ht\()_\regsize\()_\label
 .org .Lventry_start\@ + 128	// Did we overflow the ventry slot?
 	.endm
@@ -496,6 +497,7 @@ tsk	.req	x28		// current thread_info
 /*
  * Exception vectors.
  */
+ // (XXX) Linh
 	.pushsection ".entry.text", "ax"
 
 	.align	11
@@ -551,7 +553,7 @@ SYM_CODE_START_LOCAL(__bad_stack)
 SYM_CODE_END(__bad_stack)
 #endif /* CONFIG_VMAP_STACK */
 
-
+// (XXX) Linh: this is the macro for defining the function that jumps to an exception handler in entry-common.c
 	.macro entry_handler el:req, ht:req, regsize:req, label:req
 SYM_CODE_START_LOCAL(el\el\ht\()_\regsize\()_\label)
 	kernel_entry \el, \regsize
@@ -568,6 +570,7 @@ SYM_CODE_END(el\el\ht\()_\regsize\()_\label)
 /*
  * Early exception handlers
  */
+ // (XXX) Linh: these just define a assembly function that eventually jumps to an exception handler in entry-common.c
 	entry_handler	1, t, 64, sync
 	entry_handler	1, t, 64, irq
 	entry_handler	1, t, 64, fiq

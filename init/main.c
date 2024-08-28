@@ -108,6 +108,7 @@
 #include <asm/setup.h>
 #include <asm/sections.h>
 #include <asm/cacheflush.h>
+#include <asm/vectors.h>
 
 #define CREATE_TRACE_POINTS
 #include <trace/events/initcall.h>
@@ -1042,11 +1043,23 @@ asmlinkage __visible void __init __no_sanitize_address start_kernel(void)
 	tick_init();
 	rcu_init_nohz();
 	init_timers();
+
+	unsigned long vecbase = virt_to_phys(vectors);
+	pr_info("vecbase phys: %lx, virt: %lx\n", vecbase, vectors);
+	/// < GIC handler set before this point
+
+	// pr_info("triggering exception manually!\n");
+	// uint64_t val;
+	// __asm volatile("mrs %[val], MAIR_EL3\n"
+	// 	       "isb \n"
+	// 	       : [val] "=r"(val));
+
 	srcu_init();
 	hrtimers_init();
 	softirq_init();
 	timekeeping_init();
 	time_init();
+	//  < GIC ACTIVATED HERE
 
 	/* This must be after timekeeping is initialized */
 	random_init();

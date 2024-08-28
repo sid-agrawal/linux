@@ -493,6 +493,10 @@ static int gic_cpu_init(struct gic_chip_data *gic)
 	unsigned int cpu_mask, cpu = smp_processor_id();
 	int i;
 
+	pr_info("gic base: %lx, dist base: %lx\n",
+		virt_to_phys((uintptr_t)base),
+		virt_to_phys((uintptr_t)dist_base));
+
 	/*
 	 * Setting up the CPU map is only relevant for the primary GIC
 	 * because any nested/secondary GICs do not directly interface

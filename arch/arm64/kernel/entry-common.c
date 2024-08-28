@@ -358,6 +358,13 @@ UNHANDLED(el1t, 64, irq)
 UNHANDLED(el1t, 64, fiq)
 UNHANDLED(el1t, 64, error)
 
+/* These can be uncommented to route all types of errors to the unhandled exception handler
+ * The el1h_64_X_handler() functions below must be commented out */
+// UNHANDLED(el1h, 64, sync)
+// UNHANDLED(el1h, 64, irq)
+// UNHANDLED(el1h, 64, fiq)
+// UNHANDLED(el1h, 64, error)
+
 static void noinstr el1_abort(struct pt_regs *regs, unsigned long esr)
 {
 	unsigned long far = read_sysreg(far_el1);
