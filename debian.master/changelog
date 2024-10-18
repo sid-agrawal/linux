@@ -1,4 +1,4 @@
-linux (6.5.0-14.14) mantic; urgency=medium
+linux (6.5.0-14.14-devmem) mantic; urgency=medium
 
   * mantic/linux: 6.5.0-14.14 -proposed tracker (LP: #2042660)
 
